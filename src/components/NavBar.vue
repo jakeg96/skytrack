@@ -1,8 +1,5 @@
 <script setup lang="ts">
 
-import UIButton from './ui/Button.vue'
-
-
 const emits = defineEmits<{
   refresh: [active: boolean]
 }>();
@@ -17,6 +14,6 @@ const emits = defineEmits<{
         </div>
         <div> SkyTrack</div>
       </div>
-      <button @click="emits('refresh', true)" class="bg-zinc-300 text-zinc-900 hover:bg-zinc-100 active:bg-zinc-400 px-4 py-1.5 rounded-xl">Refresh</button>
+      <button @click="emits('refresh', true)" class="bg-zinc-300 text-zinc-900 hover:bg-zinc-100 active:bg-zinc-400 px-4 py-1.5 rounded-xl">Scan</button>
   </header>
 </template>

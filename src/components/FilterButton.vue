@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import type { StatusFilter } from '@/types/filter';
-import UIButton from '@/components/ui/Button.vue'
 
 const props = defineProps<{
   filter: StatusFilter;
@@ -15,9 +14,10 @@ const emits = defineEmits<{
 
 <template>
 
-  <button class="text-white hover:text-zinc-400 px-4 uppercase text-shadow-md active:text-zinc-600"
+  <button class="text-white hover:text-zinc-400 px-3 uppercase text-shadow-md active:text-zinc-600"
     @click="emits('setFilter', filter)"
   >
+  <div>bruhhhhhh</div>
     {{ filter }}
   </button>
 
