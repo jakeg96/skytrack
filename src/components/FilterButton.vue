@@ -14,10 +14,14 @@ const emits = defineEmits<{
 
 <template>
 
-  <button class="text-white hover:text-zinc-400 px-3 uppercase text-shadow-md active:text-zinc-600"
+  <button
+    :class="{
+      'text-green-400': currentFilter === filter,
+      'text-white hover:text-zinc-400 active:text-zinc-600': currentFilter !== filter
+    }"
+    class="uppercase font-bold"
     @click="emits('setFilter', filter)"
   >
-  <div>bruhhhhhh</div>
     {{ filter }}
   </button>
 

@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import type { Flight } from '@/types/flight'
 import { ref, computed } from 'vue';
-import { useDateFormat, useNow } from '@vueuse/core'
+import { useDateFormat } from '@vueuse/core'
+import { Icon } from '@iconify/vue';
 
 const props = defineProps<{
   flight: Flight
@@ -47,16 +48,18 @@ const flightDuration = computed(() => {
 <template>
   <div class="flex flex-col sm:w-130 mx-4 p-3.5 mb-3 rounded-xl text-white bg-zinc-800 border-1 border-zinc-700 hover:border-zinc-600">
     <div class="flex justify-between mb-1">
-        <img src="../assets/icons/info_white.svg" width="20px" @click="expandInfo = !expandInfo">
-        <div v-if="flight.flight_status == 'active'" class="font-bold text-green-400 uppercase text-sm">{{ flight.flight_status }}</div>
-        <div v-if="flight.flight_status == 'scheduled'" class="font-bold text-zinc-300 uppercase text-sm">{{ flight.flight_status }}</div>
-        <div v-if="flight.flight_status == 'diverted'" class="font-bold text-yellow-400 uppercas text-sm">{{ flight.flight_status }}</div>
-        <div v-if="flight.flight_status == 'incident'" class="font-bold text-orange-400 uppercase text-sm">{{ flight.flight_status }}</div>
-        <div v-if="flight.flight_status == 'landed'" class="font-bold text-zinc-600 uppercase text-sm">{{ flight.flight_status }}</div>
-        <div v-if="flight.flight_status == 'cancelled'" class="font-bold text-red-400 uppercase text-sm">{{ flight.flight_status }}</div>
+      <Icon v-if="!favouriteNow" icon="solar:star-linear" width="24" height="24" @click="favouriteNow = !favouriteNow"/>
+      <Icon v-if="favouriteNow" icon="solar:star-bold" width="24" height="24" color="gold" @click="favouriteNow = !favouriteNow"/>
 
-        <img v-if="!favouriteNow" src="../assets/icons/heart_white.svg" width="20px" @click="favouriteNow = !favouriteNow, expandInfo = !expandInfo">
-        <img v-if="favouriteNow" src="../assets/icons/heart_gold.svg" width="20px" @click="favouriteNow = !favouriteNow, expandInfo = !expandInfo">
+      <div v-if="flight.flight_status == 'active'" class="font-bold text-green-400 uppercase text-sm">{{ flight.flight_status }}</div>
+      <div v-if="flight.flight_status == 'scheduled'" class="font-bold text-zinc-300 uppercase text-sm">{{ flight.flight_status }}</div>
+      <div v-if="flight.flight_status == 'diverted'" class="font-bold text-yellow-400 uppercas text-sm">{{ flight.flight_status }}</div>
+      <div v-if="flight.flight_status == 'incident'" class="font-bold text-orange-400 uppercase text-sm">{{ flight.flight_status }}</div>
+      <div v-if="flight.flight_status == 'landed'" class="font-bold text-zinc-600 uppercase text-sm">{{ flight.flight_status }}</div>
+      <div v-if="flight.flight_status == 'cancelled'" class="font-bold text-red-400 uppercase text-sm">{{ flight.flight_status }}</div>
+
+      <Icon v-if="!expandInfo" icon="solar:info-circle-linear" width="24" height="24" @click="expandInfo = !expandInfo" />
+      <Icon v-if="expandInfo" icon="solar:info-circle-bold" width="24" height="24" @click="expandInfo = !expandInfo" />
     </div>
     <div class="flex justify-center text-sm text-zinc-400">{{ formattedDeparture }}</div>
     <div class="flex justify-between">
@@ -64,10 +67,9 @@ const flightDuration = computed(() => {
       <div class="flex flex-col xs:flex-row">
         <div class="pr-2 my-auto">
           <img
-            :src="`/airline_logos/${flight.airline?.icao}.png`"
+            :src="`/airline_logos/${flight.airline?.icao ?? 'default'}.png`"
             width="40px"
             :alt="flight.airline?.name || 'Airline Logo'"
-            @error="e => ((e.target as HTMLImageElement).src = '/airline_logos/default.png')"
           />
         </div>
         <div class="flex flex-col">

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import FlightBox from '@/components/FlightBox.vue'
+import FlightCard from '@/components/FlightCard.vue';
 import type { Flight } from '@/types/flight'
 
 const props = defineProps<{
@@ -12,7 +12,7 @@ const props = defineProps<{
   <div class="flex flex-col sm:items-center">
     <TransitionGroup name="list" tag="div">
       <div v-for="(flight, index) in filteredFlights" :key="index">
-        <FlightBox :flight="flight" />
+        <FlightCard :flight="flight" />
       </div>
     </TransitionGroup>
   </div>
