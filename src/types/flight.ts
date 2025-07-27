@@ -1,11 +1,11 @@
 export interface Flight {
-  flight_date: string
+  flight_date: string | null
   flight_status: 'scheduled' | 'active' | 'landed' | 'cancelled' | 'incident' | 'diverted'
   departure: {
-    airport: string
-    timezone: string
-    iata: string
-    icao: string
+    airport: string | null
+    timezone: string | null
+    iata: string | null
+    icao: string | null
     terminal: string | null
     gate: string | null
     delay: number | null
@@ -16,10 +16,10 @@ export interface Flight {
     actual_runway: string | null
   }
   arrival: {
-    airport: string
-    timezone: string
-    iata: string
-    icao: string
+    airport: string | null
+    timezone: string | null
+    iata: string | null
+    icao: string | null
     terminal: string | null
     gate: string | null
     baggage: string | null
@@ -31,7 +31,7 @@ export interface Flight {
     actual_runway: string | null
   }
   airline: {
-    name: string
+    name: string | null
     iata: string | null
     icao: string | null
   }
