@@ -50,4 +50,5 @@ export interface Flight {
   }
   aircraft: string | null
   live: string | null
+  id: string
 }

@@ -1,39 +1,22 @@
-# skytrack
+# SkyTrack
 
-This template should help get you started developing with Vue 3 in Vite.
+**Live Demo:** https://skytrack96.netlify.app/
 
-## Recommended IDE Setup
+## Overview
+SkyTrack is a real-time flight tracking application that fetches and displays live flight data from the AviationStack API. This project applies modern Vue.js development practices, showcasing state management, and responsive design principles.
+Built as a learning project to explore Vue 3's Composition API, TypeScript integration, and modern frontend development workflows.
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## Tech Stack
+- **Frontend Framework:** Vue.js 3 with Composition API
+- **Language:** TypeScript
+- **State Management:** Pinia
+- **Styling:** Tailwind CSS
+- **HTTP Client:** Axios
+- **Build Tool:** Vite
 
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+## Key Features
+- Data Processing - Clean API data handling with error management
+- State Management - Centralized state using Pinia stores
+- Responsive Design - Optimized for desktop and mobile devices
+- Real-time Flight Data - Live flight information from AviationStack API
+- Type Safety - Full TypeScript implementation for better code reliability

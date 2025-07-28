@@ -1,16 +1,17 @@
 <script setup lang="ts">
 import FlightCard from '@/components/FlightCard.vue'
-import type { Flight } from '@/types/flight'
+import { useFlightStore } from '@/stores/flights'
 
-const props = defineProps<{
-  filteredFlights: Flight[]
-}>()
+const flightStore = useFlightStore()
 </script>
 
 <template>
   <div class="flex flex-col">
     <TransitionGroup name="list" tag="div">
-      <div v-for="(flight, index) in filteredFlights" :key="index">
+      <div
+        v-for="(flight) in flightStore.filteredFlights"
+        :key="flight.id"
+      >
         <FlightCard :flight="flight" />
       </div>
     </TransitionGroup>
@@ -19,12 +20,12 @@ const props = defineProps<{
 
 <style scoped>
 .list-move,
-.list-enter-active,
-.list-leave-active {
+.list-enter-active {
   transition: all 0.5s ease;
+  transition-delay: var(50ms);
 }
-.list-enter-from,
-.list-leave-to {
+
+.list-enter-from {
   opacity: 0;
   transform: translateX(300px);
 }

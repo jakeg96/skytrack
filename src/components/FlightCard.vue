@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import type { Flight } from '@/types/flight'
 import { ref, computed } from 'vue'
+
 import { useDateFormat } from '@vueuse/core'
 import { Icon } from '@iconify/vue'
+
+import type { Flight } from '@/types/flight'
 
 const props = defineProps<{
   flight: Flight
@@ -58,11 +60,11 @@ const flightDuration = computed(() => {
           'text-yellow-400': flight.flight_status === 'diverted',
           'text-orange-400': flight.flight_status === 'incident',
           'text-zinc-600': flight.flight_status === 'landed',
-          'text-red-400': flight.flight_status === 'cancelled'
+          'text-red-400': flight.flight_status === 'cancelled',
         }"
         class="font-bold uppercase text-sm"
       >
-      {{ flight.flight_status }}
+        {{ flight.flight_status }}
       </div>
       <Icon
         :icon="expandInfo ? 'solar:info-circle-bold' : 'solar:info-circle-linear'"
@@ -75,15 +77,18 @@ const flightDuration = computed(() => {
       <div class="flex flex-col xs:flex-row">
         <div class="pr-2 my-auto">
           <img
-            :src="`/airline_logos/${flight.airline?.icao ?? 'default'}.png`"
-            width="40px"
+            :src="`/airline_logos/${flight.airline?.icao}.png`"
             :alt="flight.airline?.name || 'Airline Logo'"
-            draggable="false"
+            @error="(e) => ((e.target as HTMLImageElement).src = '/airline_logos/default.png')"
+            class="size-12"
           />
         </div>
         <div class="flex flex-col">
-          <div class="font-bold text-2xl text-zinc-200">
-            {{ flight.departure.iata }} - {{ flight.arrival.iata }}
+          <div class="flex flex-col sm:flex-row items-baseline">
+            <div class="font-bold text-2xl text-zinc-200">
+              {{ flight.departure.iata }} - {{ flight.arrival.iata }}
+            </div>
+            <div class="text-sm text-zinc-500 italic sm:pl-2">({{ flightDuration }})</div>
           </div>
           <div class="font-bold text-zinc-400 text-sm uppercase italic">
             {{ flight.airline.name }}
@@ -101,27 +106,29 @@ const flightDuration = computed(() => {
       </div>
     </div>
 
-    <div v-if="expandInfo" class="flex flex-row mt-3">
-      <div class="flex flex-col">
-        <div class="font-bold text-zinc-400 text-md uppercase italic">Departure</div>
-
-        <div class="font-bold text-zinc-200 text-sm">
-          {{ flight.departure.timezone?.trim().split('/').pop()?.replace(/_/g, ' ') }}
+    <div v-if="expandInfo" class="flex flex-col">
+      <div class="flex mt-3">
+        <div class="flex flex-col">
+          <div class="font-bold text-zinc-400 text-md uppercase italic">Departure</div>
+          <div>{{ formattedDeparture }}</div>
+          <div class="font-bold text-zinc-200 text-sm">
+            {{ flight.departure.timezone?.trim().split('/').pop()?.replace(/_/g, ' ') }}
+          </div>
+          <div class="text-zinc-200 text-sm">{{ flight.departure.airport }}</div>
+          <div class="text-sm">Gate: {{ flight.departure.gate || 'Not Assigned' }}</div>
         </div>
-        <div class="text-zinc-200 text-sm">{{ flight.departure.airport }}</div>
-        <div>{{ formattedDeparture }}</div>
-        <div class="text-sm">Gate: {{ flight.departure.gate || 'Not Assigned' }}</div>
-      </div>
-      <div class="ml-auto text-end">
-        <div class="font-bold text-zinc-400 text-md uppercase italic">Arrival</div>
 
-        <div class="font-bold text-zinc-200 text-sm">
-          {{ flight.arrival.timezone?.trim().split('/').pop()?.replace(/_/g, ' ') }}
+        <div class="ml-auto text-end">
+          <div class="font-bold text-zinc-400 text-md uppercase italic">Arrival</div>
+          <div>{{ formattedArrival }}</div>
+          <div class="font-bold text-zinc-200 text-sm">
+            {{ flight.arrival.timezone?.trim().split('/').pop()?.replace(/_/g, ' ') }}
+          </div>
+          <div class="text-zinc-200 text-sm">{{ flight.arrival.airport }}</div>
+          <div class="text-sm">Gate: {{ flight.arrival.gate || 'Not Assigned' }}</div>
         </div>
-        <div class="text-zinc-200 text-sm">{{ flight.arrival.airport }}</div>
-        <div>{{ formattedArrival }}</div>
-        <div class="text-sm">Gate: {{ flight.arrival.gate || 'Not Assigned' }}</div>
       </div>
+      <div class="flex justify-center text-xs text-zinc-500 mt-2">{{ flight.id }}</div>
     </div>
   </div>
 </template>
