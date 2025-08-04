@@ -1,6 +1,6 @@
 # SkyTrack
 
-**Live Demo:** https://skytrack96.netlify.app/
+**Live Demo:** https://skytrack.jakegreen.dev/
 
 ## Overview
 SkyTrack is a real-time flight tracking application that fetches and displays live flight data from the AviationStack API. This project applies modern Vue.js development practices, showcasing state management, and responsive design principles.
@@ -13,6 +13,7 @@ Built as a learning project to explore Vue 3's Composition API, TypeScript integ
 - **Styling:** Tailwind CSS
 - **HTTP Client:** Axios
 - **Build Tool:** Vite
+- **CI/CD with Vercel**
 
 ## Key Features
 - Data Processing - Clean API data handling with error management
